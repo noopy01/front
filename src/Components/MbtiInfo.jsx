@@ -57,13 +57,12 @@ const MbtiName = styled.h1`
 const MbtiDescription = styled.p`
   font-size: 18px;
   color: black;
-
 `;
 
 const RecommendationSection = styled.div`
   width: 80%;
   margin-top: 40px;
-   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const RecommendationTitle = styled.h2`
@@ -84,22 +83,19 @@ const RecommendationItem = styled.div`
   border-radius: 10px;
   text-align: center;
   width: 150px;
-
 `;
 
 const ItemImage = styled.div`
   background-color: #D9D9D9;
   padding: 20px;
-  margin-left: 30px;
   text-align: center;
-  width: 50px;
-  height : 50px;
+  width: 100%;
+  height: 100px;
 `;
 
 const ItemTitle = styled.h3`
-
   margin-top: 10%;
-  font-size: 23px;
+  font-size: 18px;
   font-weight: bold;
   color: black;
   padding: 2%;
@@ -117,38 +113,31 @@ const ItemDescription2= styled.p`
   padding: 3%;
 `;
 
-const Component = styled.div`
-    margin-left : 2vw;
-    margin-top : 2vh;
-    background-color: #373b69;
-    position: relative;
-    display:inline-block;
-`;
-
-const MbtiInfo = () => {
+export default function MbtiInfo() {
   const location = useLocation();
-  const [search, setSearch] = useState([]);
   const { id, imagePath } = location.state || {};
+  const [data, setData] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      if (id) {
-        try {
-          const response = await axios.get(`http://13.124.118.56:8080/percol/Mbti/${id}`, {
-            method: "GET",
-            headers: {  
-              'Content-Type': 'application/json',
-            },
-          });
-          setSearch(response.data.incenseDto);
-          console.log(response);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
+      try {
+        const response = await axios.post('http://13.124.118.56:8080/percol/Mbti', {
+          id,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
       }
     };
+
     fetchData();
-  }, []);
+  }, [id]);
+
+  const { incenseDto, incenseDto2 } = data;
 
   return (
     <OuterContainer>
@@ -162,50 +151,23 @@ const MbtiInfo = () => {
         <RecommendationSection>
           <RecommendationTitle>추천하는 향</RecommendationTitle>
           <RecommendationList>
-            <RecommendationItem>
-              <ItemImage></ItemImage> 
-              <ItemTitle>아로마 향</ItemTitle>
-              <ItemDescription>라벤더, 클래리 세이지 등</ItemDescription>
-            </RecommendationItem>
-            <RecommendationItem>
-            <ItemImage></ItemImage> 
-              <ItemTitle>시트러스 향</ItemTitle>
-              <ItemDescription>베르가못, 자몽 등</ItemDescription>
-            </RecommendationItem>
-          </RecommendationList>
-        </RecommendationSection>
-        <RecommendationSection>
-          <RecommendationTitle>추천하는 향수</RecommendationTitle>
-          <RecommendationList>
-            <RecommendationItem>
-            <ItemImage></ItemImage> 
-              <ItemTitle>Grey Vetiver</ItemTitle>
-              <ItemDescription>Tom Ford</ItemDescription>
-              <ItemDescription2>우아하고 깨끗한 베티버 향이 중심이 되어 고급스러운 이미지</ItemDescription2>
-            </RecommendationItem>
-            <RecommendationItem>
-            <ItemImage></ItemImage> 
-              <ItemTitle>Grey Vetiver</ItemTitle>
-              <ItemDescription>Tom Ford</ItemDescription>
-              <ItemDescription2>우아하고 깨끗한 베티버 향이 중심이 되어 고급스러운 이미지</ItemDescription2>
-            </RecommendationItem>
-            <RecommendationItem>
-            <ItemImage>
-            {search.map((perfume, index) => ( 
-          <Component key={index}>
-            <div className="title">{perfume.name}</div>
-          </Component>
-          ))}
-          </ItemImage> 
-              <ItemTitle>Grey Vetiver</ItemTitle>
-              <ItemDescription>Tom Ford</ItemDescription>
-              <ItemDescription2>우아하고 깨끗한 베티버 향이 중심이 되어 고급스러운 이미지</ItemDescription2>
-            </RecommendationItem>
+            {incenseDto && (
+              <RecommendationItem>
+                <ItemImage></ItemImage>
+                <ItemTitle>{incenseDto.name}</ItemTitle>
+                <ItemDescription>{incenseDto.content}</ItemDescription>
+              </RecommendationItem>
+            )}
+            {incenseDto2 && (
+              <RecommendationItem>
+                <ItemImage></ItemImage>
+                <ItemTitle>{incenseDto2.name}</ItemTitle>
+                <ItemDescription>{incenseDto2.content}</ItemDescription>
+              </RecommendationItem>
+            )}
           </RecommendationList>
         </RecommendationSection>
       </Container>
     </OuterContainer>
   );
-};
-
-export default MbtiInfo;
+}
