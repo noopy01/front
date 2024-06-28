@@ -12,8 +12,12 @@ export const ProgressProvider = ({ children }) => {
     setProgress(prev => Math.min(100, (prev + (100 / steps))));
   };
 
+  const setProgressComplete = () => {
+    setProgress(100);
+  };
+
   return (
-    <ProgressContext.Provider value={{ progress, handleNext }}>
+    <ProgressContext.Provider value={{ progress, handleNext, setProgressComplete }}>
       {children}
     </ProgressContext.Provider>
   );

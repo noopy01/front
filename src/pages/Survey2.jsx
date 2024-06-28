@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useProgress } from './ProgressContext';
@@ -94,10 +94,13 @@ export default function Survey2() {
 
     const navigate = useNavigate();
     const { handleNext } = useProgress();
+    const [text1, setText1] = useState();
 
-    const navigateToSurTue = () => {
+    const navigateToSurTue = (text1) => {
         handleNext();
-        navigate("/survey/3");
+        navigate("/survey/3", {
+            state : { text1 }
+        });
     }
 
     return (
@@ -113,10 +116,10 @@ export default function Survey2() {
                 
 
                 <BtnCon >
-                    <StartBtn type="button" onClick={navigateToSurTue}>봄</StartBtn>
-                    <StartBtn type="button" onClick={navigateToSurTue}>여름</StartBtn>
-                    <StartBtn type="button" onClick={navigateToSurTue}>가을</StartBtn>
-                    <StartBtn type="button" onClick={navigateToSurTue}>겨울</StartBtn>
+                    <StartBtn type="button" text1="봄" onClick={navigateToSurTue}>봄</StartBtn>
+                    <StartBtn type="button" text1="여름" onClick={navigateToSurTue}>여름</StartBtn>
+                    <StartBtn type="button" text1="가을" onClick={navigateToSurTue}>가을</StartBtn>
+                    <StartBtn type="button" text1="겨울" onClick={navigateToSurTue}>겨울</StartBtn>
                 </BtnCon>
                
                <Pages >1/5</Pages>

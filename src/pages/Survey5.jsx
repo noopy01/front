@@ -90,7 +90,7 @@ const Pages = styled.div`
 
 `;
 
-export default function Survey2() {
+export default function Survey5() {
 
     const navigate = useNavigate();
     const { handleNext } = useProgress();

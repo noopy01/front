@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useProgress } from './ProgressContext';
@@ -90,7 +90,7 @@ const Pages = styled.div`
 
 `;
 
-export default function Survey2() {
+export default function Survey3() {
 
     const navigate = useNavigate();
     const { handleNext } = useProgress();
@@ -111,7 +111,7 @@ export default function Survey2() {
 
                 <ProgressBar/>            
                 <BtnCon>
-                    <StartBtn type="button" onClick={navigateToSurThr}>플로럴</StartBtn>
+                    <StartBtn type="button" text2 onClick={navigateToSurThr}>플로럴</StartBtn>
                     <StartBtn type="button" onClick={navigateToSurThr}>우디</StartBtn>
                     <StartBtn type="button" onClick={navigateToSurThr}>시트러스</StartBtn>
                     <StartBtn type="button" onClick={navigateToSurThr}>머스크</StartBtn>

@@ -18,42 +18,58 @@ const SurveyContainer = styled.div`
 
 
 const FindText = styled.h1`
+    font-size: 48px;
     margin: 25px;
-    color: purple;
+    margin-top: 247px;
+    margin-bottom: 100px;
+    color: rgba(199, 115, 240, 1);
     white-space: pre-line
 `;
 
 const WhatText = styled.h2`
     font-weight: bold;
-    padding: 10px;
+    // padding: 10px;
     color: black;
 `;
 
 const Qtext = styled.div`
-    
+
+    margin-bottom: 100px;
     color: rgba(69, 69, 69, 1);
 `;
 
 const TimerText = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  margin: 40px 0; /* 텍스트와 점선 사이의 간격 추가 */
+  width: 100%;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 40%;
+    border-top: 1px dashed gray;
+  }
+
+  &::before {
+    top: 0;
+    transform: translateY(-2000%); /* 점선을 텍스트 위로 이동 */
+  }
+
+  &::after {
+    bottom: 0;
+    transform: translateY(2000%); /* 점선을 텍스트 아래로 이동 */
+  }
+
+  span {
+    background-color: white;
     color: gray;
-    text-align: center;
-    margin: 20px 0;
-    position: relative;
-    width: 100%;
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        width: 40%;
-        border-top: 1px dashed gray;
-    }
-    &::before {
-        left: 0;
-    }
-    &::after {
-        right: 0;
-    }
+    padding: 40px 10px; /* 텍스트 주변 여백 추가 */
+  }
 `;
 
 const StartBtn = styled.button`
@@ -61,9 +77,11 @@ const StartBtn = styled.button`
     width: 523px;
     height: 54px;
     margin: 13px;
+    margin-top: 100px;
     color: white;
     background-color: rgba(157, 62, 202, 1);
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
     justify-align: center;
     align-items: center;
     border-radius: 45px;
