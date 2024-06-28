@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { useNavigate } from 'react-router-dom';
 
 
 const SurveyContainer = styled.div`
-    width: 80%;
-    min-height: 5200px;
+    width: 100%;
+    min-height: 100vh;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -17,16 +17,6 @@ const SurveyContainer = styled.div`
 
 
 
-const Surtext = styled.div`
-    text-align: center;
-    color: white;
-    width: 55px;
-    padding: 5px;
-    margin: 13px;
-    background-color: purple;
-    border-radius: 25px;
-`;
-
 const FindText = styled.h1`
     margin: 25px;
     color: purple;
@@ -34,49 +24,70 @@ const FindText = styled.h1`
 `;
 
 const WhatText = styled.h2`
-    
+    font-weight: bold;
     padding: 10px;
     color: black;
 `;
 
-const TimeIcon = styled.div`
-
-    margin-right: 10px;
+const Qtext = styled.div`
     
+    color: rgba(69, 69, 69, 1);
 `;
 
 const TimerText = styled.div`
-
     color: gray;
-
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    width: 100%;
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        border-top: 1px dashed gray;
+    }
+    &::before {
+        left: 0;
+    }
+    &::after {
+        right: 0;
+    }
 `;
 
 const StartBtn = styled.button`
     padding: 10px;
-    width: 340px;
+    width: 523px;
+    height: 54px;
     margin: 13px;
     color: white;
-    background-color: purple;
+    background-color: rgba(157, 62, 202, 1);
     font-size: 1rem;
     justify-align: center;
     align-items: center;
-    border-radius: 25px;
+    border-radius: 45px;
     border: none;
 `;
 export default function Survey() {
+
+    const navigate = useNavigate();
+
+    const navigateToSurOne = () => {
+        navigate("/survey/2");
+    }
+
     return (
         <SurveyContainer>
-            <Surtext>survey</Surtext>
             
             <FindText>Find a perfume that {'\n'} suits your personality</FindText>
 
             <WhatText>나에게 어울리는 향수는? </WhatText>
-            
-            <TimeIcon role="img" aira-label="timer">⏱️</TimeIcon>
-            <TimerText>소요시간 3분내외</TimerText>
+            <Qtext>몇가지 질문을 통해 당신에게 향수를 추천합니다.</Qtext>
+            <TimerText>⏱️ 소요시간: 3분내외</TimerText>
 
 
-            <StartBtn type="button">시  작</StartBtn>
+            <StartBtn type="button" onClick={navigateToSurOne}>시  작</StartBtn>
         </SurveyContainer>
 
 
