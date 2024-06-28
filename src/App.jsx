@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from './pages/MainPage';
 import Navbar from './pages/Navbar';
 import Login from './pages/Login';
+import Survey from './pages/Survey';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/login" element={<Login/>}/> 
-
+          <Route path="/survey" element={<Survey/>}/> 
         </Routes>
     </BrowserRouter>
 

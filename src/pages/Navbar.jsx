@@ -62,7 +62,7 @@ export default function Navbar() {
                 <div className="nav-right-wrap"> 
                     <ul>       
                         <li>
-                            <Link className='header-nav-item' to='/popular'>
+                            <Link className='header-nav-item' to='/survey'>
                                 <p className="ho" >질문지</p>
                             </Link>
                         </li>
