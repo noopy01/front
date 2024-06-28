@@ -1,64 +1,64 @@
-import Slider from 'react-slick';
+import { useEffect, useState } from 'react';
+import axios from "axios";
 import * as B from './main.style';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import img1 from '../Img/1.png';
-import img2 from '../Img/2.png';
-import NextArrow_img from '../Img/NextArrow.png';
-import PrevArrow_img from '../Img/PrevArrow.png';
-import PropTypes from 'prop-types';
+import Left from '../Img/Left.png';
+import Right from '../Img/Right.png';
+import MainImg from '../Img/Main.png';
 
-function Detail1() {
-    const settings1 = {   
-        infinite: false,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        dots: true,
-        arrows: true,
-        appendDots: dots => (
-          <B.CustomDots>
-              {dots}
-          </B.CustomDots>
-        ),
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
+function Main() {    
+  const [title, setTitle] = useState('');
+  const [search, setSearch] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (title.trim() !== '') {
+        try {
+          const response = await axios.get(`http://13.124.118.56:8080/percol/PerfumeFind/`, {
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkOGY2YmE1ZmUwZTRkN2U0ZGI1Mjc5M2U1Y2ViZTE4ZiIsInN1YiI6IjY2Mjg5NmM0MTc2YTk0MDE2NjgyMjliMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sl80DdobF9_NA9Mib8y9iGb54XIqgHu6igfwZjFfP8I`
+            },
+          });
+          setSearch(response.data.results);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
     };
-    
+    fetchData();
+  }, [title]);
+
+  const handleInputChange = (e) => {
+    setTitle(e.target.value)
+  }
     return (
         <div>
-            <B.ImageSlider>
-                <Slider {...settings1}>
-                    <div className="slide-container">
-                        <img className="img" src={img1} alt="1" />
-                    </div>
-                    <div className="slide-container">
-                        <img className="img" src={img2} alt="2" />
-                    </div>
-                </Slider>
-            </B.ImageSlider>
+          <B.SearchContainer>
+            <B.LeftImage src={Left} alt="왼쪽" />
+              <input className="search1"  placeholder='검색어를 입력해주세요' onChange = {handleInputChange}/>
+            <B.RightImage src={Right} alt="오른쪽" />
+          </B.SearchContainer>
+          <B.MainImg>
+            <img src={MainImg} alt="메인이미지"/>
+          </B.MainImg>
+          {title && (
+        <B.Info>
+          {search.map((movie, index) => ( 
+          <B.Component key={index}>
+            <B.Movieimg>
+              <B.Img src={movie.poster_path} alt={movie.title} />
+              <B.Movieinfo>
+                <div className="title">{movie.title}</div>
+                <div id = "average">{movie.vote_average}</div>
+              </B.Movieinfo>
+            </B.Movieimg>
+          </B.Component>
+          ))}
+        </B.Info>
+      )}
         </div>
     );
 }
-
-const NextArrow = ({ onClick }) => {
-  return (
-    <B.ArrowContainer right="true" onClick={onClick}>
-      <img src={NextArrow_img} alt="Next" style={{ width: '50px', height: '50px' }} />
-    </B.ArrowContainer>
-  );
-};
-NextArrow.propTypes = {
-  onClick: PropTypes.func.isRequired, 
-};
-
-const PrevArrow = ({ onClick }) => {
-  return (
-    <B.ArrowContainer left="true" onClick={onClick}>
-      <img src={PrevArrow_img} alt="Prev" style={{ width: '50px', height: '50px' }} />
-    </B.ArrowContainer>
-  );
-};
-PrevArrow.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
-export default Detail1;
+export default Main;

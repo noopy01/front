@@ -1,63 +1,91 @@
 import styled from "styled-components";
 
-export const ImageSlider = styled.div`
-    margin-top: 5vh;
-    width: 100vw;
+export const SearchContainer = styled.div`
+    display : flex;
+    margin-left : 28.5vw;
+    margin-top: 15vh;
+    .search1{
+        margin-top : 2vh;
+        padding-left : 1vw;
+        width : 35vw;
+        height : 5vh;
+        border-radius : 1vw;    
+        border-color : #700E9F;
+  }
+`
 
-    .slide-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: calc(100vh - 15vh); 
-    }
+export const LeftImage = styled.img`
+    width: 50px; 
+    height: 70px; 
+`;
 
-    .img {
+export const RightImage = styled.img`
+    width: 50px; 
+    height: 70px; 
+`;
+
+export const MainImg = styled.div`
+    img {
         width: 100%; 
-        height: 100%; 
-        object-fit: cover;
     }
+`
+
+export const Info = styled.div`
+  background-color : #11264f;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 5vh;
+  width: 70vw;
+  max-height: 100vh;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+`
+
+export const Component = styled.div`
+    margin-left : 2vw;
+    margin-top : 2vh;
+    background-color: #373b69;
+    position: relative;
+    display:inline-block;
 `;
 
-export const CustomDots = styled.ul`
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    list-style: none;   
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 10; 
-
-    li {
-        width: 12px;
-        height: 12px;
-        margin: 0 5px;
-    }
+export const Movieimg = styled.div`
+    width: 200px;
+    background-color: #373b69;
+    position: relative;
+`;
+export const Img = styled.img`
+  width: 100%;
+`;
+export const Movieinfo = styled.div`
+  font-size : 0.5em;
+  margin-left: 1vw;
+  margin-top: 0.5vh;
+  margin-bottom : 3vh;
+  color: #FFFFFF;
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  #average {
+    margin-right: 1vw;
+    white-space: nowrap;
+  }
+  .title {
+    flex: 1;
+    margin-right: 1vw;
+  }
 `;
 
-export const CustomDot = styled.li`
-    width: 12px;
-    height: 12px;
-    background-color: ${({ active }) => (active ? '#ffffff' : '#ccc')};
-    border-radius: 50%;
-    cursor: pointer;
-`;
 
-const ArrowContainer = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border: none;
-  background: none;
-  padding: 0;
-  margin: 0;
-  ${({ right }) => (right ? 'right: 0;' : 'left: 0;')}
-  z-index: 1;
-`;
-
-ArrowContainer.shouldForwardProp = prop => prop !== 'right' && prop !== 'left';
-
-export { ArrowContainer };
 
