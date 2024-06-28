@@ -69,21 +69,37 @@ export const Img = styled.img`
   width: 100%;
 `;
 export const Movieinfo = styled.div`
-  font-size : 0.5em;
+height : 100vh;
+ font-size: 0.5em;
   margin-left: 1vw;
   margin-top: 0.5vh;
-  margin-bottom : 3vh;
-  color: #FFFFFF;
-  display:flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  #average {
-    margin-right: 1vw;
-    white-space: nowrap;
-  }
+  margin-bottom: 3vh;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+
   .title {
-    flex: 1;
-    margin-right: 1vw;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 5vh;
+  }
+
+  .content {
+    width: 100%;
+    margin-bottom: 5vh;
+  }
+
+  .price {
+    width: 100%;
+    margin-bottom: 5vh;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 

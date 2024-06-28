@@ -16,6 +16,7 @@ import KakaoRedirectHandler from './Components/KakaoRedirecthandler.jsx';
 import Mbti from './Components/Mbti.jsx';
 import MbtiInfo from './Components/MbtiInfo.jsx';
 import MyPage from './Components/MyPage.jsx';
+import SearchResults from './Components/SearchResults.jsx';
 
 import { ProgressProvider } from '../src/Components/ProgressContext.jsx';
 
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Navbar/>
           <Routes>
             <Route path="/" element={<MainPage/>}/>
+            <Route path="/search/:title" element={<SearchResults/>} />
             <Route path="/login" element={<Login/>}/>
             <Route path="/auth/kakao/callback" element={<KakaoRedirectHandler />} />
             <Route path="/signup" element={<SignupPage/>}/>

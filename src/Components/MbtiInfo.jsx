@@ -57,12 +57,13 @@ const MbtiName = styled.h1`
 const MbtiDescription = styled.p`
   font-size: 18px;
   color: black;
+
 `;
 
 const RecommendationSection = styled.div`
   width: 80%;
   margin-top: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const RecommendationTitle = styled.h2`
@@ -83,19 +84,30 @@ const RecommendationItem = styled.div`
   border-radius: 10px;
   text-align: center;
   width: 150px;
+  .Dto1{
+    width : 10vw;
+    height : 20vh;
+  }
+  .Dto2{
+    width : 10vw;
+    height : 20vh;
+  }
+
 `;
 
 const ItemImage = styled.div`
   background-color: #D9D9D9;
   padding: 20px;
+  margin-left: 30px;
   text-align: center;
-  width: 100%;
-  height: 100px;
+  width: 50px;
+  height : 50px;
 `;
 
 const ItemTitle = styled.h3`
+
   margin-top: 10%;
-  font-size: 18px;
+  font-size: 23px;
   font-weight: bold;
   color: black;
   padding: 2%;
@@ -113,29 +125,38 @@ const ItemDescription2= styled.p`
   padding: 3%;
 `;
 
-export default function MbtiInfo() {
+const Component = styled.div`
+    margin-left : 2vw;
+    margin-top : 2vh;
+    background-color: #373b69;
+    position: relative;
+    display:inline-block;
+`;
+
+const MbtiInfo = () => {
   const location = useLocation();
-  const { id, imagePath } = location.state || {};
   const [data, setData] = useState({});
+  const { id, imagePath } = location.state || {};
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.post('http://13.124.118.56:8080/percol/Mbti', {
-          id,
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        setData(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      if (id) {
+        try {
+          const response = await axios.get(`http://13.124.118.56:8080/percol/Mbti/${id}`, {
+            method: "GET",
+            headers: {  
+              'Content-Type': 'application/json',
+            },
+          });
+          setData(response.data);
+          console.log(response);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
       }
     };
-
     fetchData();
-  }, [id]);
+  }, []);
 
   const { incenseDto, incenseDto2 } = data;
 
@@ -153,14 +174,14 @@ export default function MbtiInfo() {
           <RecommendationList>
             {incenseDto && (
               <RecommendationItem>
-                <ItemImage></ItemImage>
+                <img className="Dto1" src={incenseDto.image}/>
                 <ItemTitle>{incenseDto.name}</ItemTitle>
                 <ItemDescription>{incenseDto.content}</ItemDescription>
               </RecommendationItem>
             )}
             {incenseDto2 && (
               <RecommendationItem>
-                <ItemImage></ItemImage>
+                <img className="Dto2" src={incenseDto2.image}/>
                 <ItemTitle>{incenseDto2.name}</ItemTitle>
                 <ItemDescription>{incenseDto2.content}</ItemDescription>
               </RecommendationItem>
@@ -171,3 +192,5 @@ export default function MbtiInfo() {
     </OuterContainer>
   );
 }
+
+export default MbtiInfo;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Image = styled.div`
-
+    margin-top : 20vh;
 `
 export const KakaoImage = styled.img`
     margin-left : 42vw;
